@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <div>{{1+3}}</div>
+   <div>{{msg1+msg2}}</div>
+   <div>{{msg3+5}}</div>
+   <div>{{msg4.split('').reverse().join('') }}</div>
+   <div v-if="issee?true:false">你看的见我吗</div>
+   <div :newdata="5+5">最后一个</div>
+
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+   new Vue({
+     el:"#app",
+     data:{
+       msg1:"我",
+       msg2:"你",
+       msg3:5,
+       msg4:"我是正面",
+       issee:"a"
+     },
+   })
+
+</script>
+</body>
+</html>
