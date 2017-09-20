@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="app">
+   <div>{{aaa="爸爸吧"}}</div>
+  <div :abc="abcd" >测试</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+   var vue = new Vue({
+     el:".app",
+     data:{
+       msg:'我来了',
+       msg1:"我是什么"
+     },
+     computed: {
+       aaa: {
+         // `this` points to the vm instance
+          get(){
+            return this.msg
+          },
+         set(val){
+            return this.msg=val
+         }
+
+       },
+       abcd(){
+         return this.msg1+"我是你爸爸"
+       }
+     }
+
+   });
+</script>
+
+</body>
+</html>
