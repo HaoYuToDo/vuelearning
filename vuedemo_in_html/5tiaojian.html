@@ -1,0 +1,43 @@
+<!--条件渲染-->
+<!--渲染多用show，少用if-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <template  v-if="tab">
+    <div>第一个</div>
+  </template>
+    <div v-else>第二个</div>
+
+
+  <div v-show="b" @click="bb">测试事件2</div>
+  <div v-if="a" @click="aa">测试事件1</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+    new Vue({
+      el:'#app',
+      data:{
+        tab:true,
+         a:true,
+         b:true
+      },
+      methods:{
+        aa(){
+          console.log("a被点击了")
+          this.b=false
+        },
+        bb(){
+          console.log("b被点击了")
+          this.a=false
+        }
+      }
+    })
+</script>
+
+</body>
+</html>

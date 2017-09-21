@@ -1,0 +1,36 @@
+<!--类名和style-->
+<!--都用{}就可以了-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .activi{
+      color: red;
+    }
+    .mheight{
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+    <div :class="{activi:isactivi,mheight:true}">类名</div>
+    <div :style="{color:'yellow'}">属性</div>
+    <div :style="{color:activeColor}">属性</div>
+    <div :style="{fontSize:50+'px'}">属性</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+   new Vue({
+     el:'#app',
+     data:{
+        isactivi:true,
+       activeColor: 'red',
+//       fontSize: 30
+     }
+   })
+</script>
+</body>
+</html>
