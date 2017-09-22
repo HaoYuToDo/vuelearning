@@ -1,7 +1,6 @@
 <!--列表渲染-->
 <!--遍历数组，对象，计算属性，方法，配合嵌套使用跳循环v-if，当然也可以用filter达到同样的效果-->
-
-<!--对象更新问题，和key的问题-->
+<!--对象更新，数组更新-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,8 +41,12 @@
   <!--<p v-else>No todos left!</p>-->
 
 
-  <!--<div @click="bb">点击我改变对象</div>-->
-  <!--<div>b:{{age}}</div>-->
+  <div>
+    <div>我是{{haha.name}}</div>
+    <div @click="aaa">点击我</div>
+    <div>我是{{haha.msg1}}</div>
+    <div>我是{{haha.msg2}}</div>
+  </div>
 
 </div>
 <script src="https://unpkg.com/vue"></script>
@@ -52,6 +55,9 @@
      el:'#app',
 
      data:{
+       haha:{
+         name:'是地方撒'
+       },
        todos:[true,false,true],
        numbers: [ 1, 2, 3, 4, 5 ],
        items: [
@@ -70,6 +76,14 @@
        }
      },
      methods:{
+       aaa(){
+//      this.$set(this.haha,'msg',34)
+         this.haha = Object.assign({}, this.haha, {
+           msg1:'第一个数据',
+           msg2:'第二个数据'
+         })
+
+       },
        aa(){
          // n非变异方法解决，重新赋值(slice filter concat)
          // this.items = this.items.slice(0,2)
