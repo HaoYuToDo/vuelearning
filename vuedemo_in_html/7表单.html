@@ -1,0 +1,98 @@
+<!--表单看官方文档-->
+<!--多项选择用[],单项选择用'',所以值是v-model绑定的值，但value影响v-model绑定值的要显示的值-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+  <input v-model="msg" placeholder="edit me">
+  <p>Message is: {{ msg }}</p>
+
+  <span>Multiline message is:</span>
+  <br>
+  <textarea v-model="msg1" placeholder="add multiple lines"></textarea>
+  <p style="white-space: pre-line;">{{ msg1 }}</p>
+
+  <input type="checkbox" id="checkbox" v-model="checked" value="jack">
+  <label for="checkbox">{{ checked }}</label>
+
+  <div id='example-3'>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+  </div>
+
+  <div id="example-4">
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
+  </div>
+
+  <div id="example-5">
+    <select v-model="selected">
+      <option disabled value="">请选择</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+  </div>
+
+  <div id="example-6">
+    <select v-model="selected1" multiple style="width: 50px;">
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+    </select>
+    <br>
+    <span>Selected: {{ selected1 }}</span>
+  </div>
+
+  <select v-model="selected3">
+    <option v-for="option in options" :value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <span>Selected: {{ selected3 }}</span>
+
+
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+  new Vue({
+    el:'#app',
+    data:{
+      msg:'',
+      msg1:'',
+      checked:'',
+      checkedNames:[],
+      picked:'',
+      selected:'',
+      selected1: [],
+      selected3:'',
+      options: [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+      ]
+    }
+
+  })
+
+</script>
+</body>
+</html>

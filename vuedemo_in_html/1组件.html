@@ -1,5 +1,5 @@
 <!--组件-->
-<!--当用 Vue.component或者<template/> 需要传入key，目的是让有多个相同组件时，vue不复用-->
+<!--当用 Vue.component或者<template/> 需要传入key，目的是让有多个相同组件时，vue不复用,一般都不会用key-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +14,7 @@
     v-bind:todo="item"
     v-bind:key="item.id">
   </todo-item>
+  <input @keyup.enter="aaa">
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
@@ -29,6 +30,11 @@
         { id: 1, text: '奶酪' },
         { id: 2, text: '随便其他什么人吃的东西' }
       ]
+    },
+    methods:{
+      aaa(){
+        console.log("alt被点击了")
+      }
     }
   })
 

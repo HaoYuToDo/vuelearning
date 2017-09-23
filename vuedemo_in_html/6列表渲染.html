@@ -1,12 +1,11 @@
 <!--列表渲染-->
 <!--遍历数组，对象，计算属性，方法，配合嵌套使用跳循环v-if，当然也可以用filter达到同样的效果-->
-
-<!--对象更新问题，和key的问题-->
+<!--对象更新，数组更新-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 <div id="app">
@@ -29,76 +28,80 @@
 
   <!--不满足就跳出本次循环继续下一次-->
   <ul>
-  <li v-for="todo in todos" v-if="todo===false">
-    {{ todo }}
-  </li>
+    <li v-for="todo in todos" v-if="todo===false">
+      {{ todo }}
+    </li>
   </ul>
 
   <!--<ul v-if="todos.length">-->
-    <!--<li v-for="todo in todos">-->
-      <!--{{ todo }}-->
-    <!--</li>-->
+  <!--<li v-for="todo in todos">-->
+  <!--{{ todo }}-->
+  <!--</li>-->
   <!--</ul>-->
   <!--<p v-else>No todos left!</p>-->
 
 
-  <!--<div @click="bb">点击我改变对象</div>-->
-  <!--<div>b:{{age}}</div>-->
+  <div>
+    <div>我是{{haha.name}}</div>
+    <div @click="aaa">点击我</div>
+    <div>我是{{haha.msg1}}</div>
+    <div>我是{{haha.msg2}}</div>
+  </div>
 
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
   var vm= new Vue({
-     el:'#app',
-
-     data:{
-       todos:[true,false,true],
-       numbers: [ 1, 2, 3, 4, 5 ],
-       items: [
-         1 ,
-         2,
-         3,
-         4,
-       ],
-       object: {
-         firstName: 'John',
-         lastName: 'Doe',
-         age: 30
-       },
-       userProfile: {
-         name: 'Anika'
-       }
-     },
-     methods:{
-       aa(){
-         // n非变异方法解决，重新赋值(slice filter concat)
-         // this.items = this.items.slice(0,2)
-
-         //索引赋值，
+    el:'#app',
+    data:{
+      haha:{
+        name:'是地方撒'
+      },
+      todos:[true,false,true],
+      numbers: [ 1, 2, 3, 4, 5 ],
+      items: [
+        1 ,
+        2,
+        3,
+        4,
+      ],
+      object: {
+        firstName: 'John',
+        lastName: 'Doe',
+        age: 30
+      },
+      userProfile: {
+        name: 'Anika'
+      }
+    },
+    methods:{
+      aaa(){
+//      this.$set(this.haha,'msg',34)
+        this.haha = Object.assign({}, this.haha, {
+          msg1:'第一个数据',
+          msg2:'第二个数据'
+        })
+      },
+      aa(){
+        // n非变异方法解决，重新赋值(slice filter concat)
+        // this.items = this.items.slice(0,2)
+        //索引赋值，
 //         this.items[0]=15
-         //解决办法
+        //解决办法
 //         Vue.set(this.items,0,15)
 //         this.items.splice(0,1,15)
-         //改变长度,（我测试改变长度是可以的，不需要解决）
+        //改变长度,（我测试改变长度是可以的，不需要解决）
 //         this.items.length=10;
-         //解决办法
+        //解决办法
 //         this.items.splice(10)
-
 //         console.log(this.items)
-       },
-       bb(){
-
-//         vue.b="我来了"
-//         Vue.set(vue.haha,'age', 27)
-//         Vue.set(vm.userProfile, 'age', 27)
-//         console.log("b被点击")
-       },
-       even: function (numbers) {
-         return numbers.filter(function (number) {
-           return number % 2 === 0
-         })
-       }
-     },
+      },
+      even: function (numbers) {
+        return numbers.filter(function (number) {
+          return number % 2 === 0
+        })
+      }
+    },
     computed: {
       evenNumbers: function () {
         return this.numbers.filter(function (number) {
@@ -106,7 +109,7 @@
         })
       }
     }
-   })
+  })
 </script>
 </body>
 </html>
