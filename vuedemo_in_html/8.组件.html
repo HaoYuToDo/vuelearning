@@ -5,14 +5,61 @@
     <title>Title</title>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+  <input type="text" v-model="msg">
+  <child-a :my-message="msg"></child-a>
+  <br>
+  <todoitem v-bind="todo"></todoitem>
+  <br>
+  <!--等价于-->
+  <todoitem
+    v-bind:text="todo.text"
+    v-bind:is-complete="todo.isComplete"
+    v-bind:aa="todo.aa"
+  ></todoitem>
+  <br>
+ <!--字符串-->
+  <comp  msg="1"></comp>
+  <br>
+  <!--number类型-->
+  <comp :msg="1" ></comp>
+</div>
 <script src="https://unpkg.com/vue"></script>
 <script>
+  Vue.component('childA', {
+    // camelCase in JavaScript
+    props: ['myMessage'],
+    template: '<span>{{ myMessage }}</span>'
+  });
+
+  Vue.component('comp', {
+    // camelCase in JavaScript
+    props: ['msg'],
+    template: '<span>{{ msg+2 }}</span>'
+  });
+
+  Vue.component('todoitem', {
+    // camelCase in JavaScript
+    props: ['text','isComplete','aa'],
+    template: '<span>{{text}}--{{isComplete}}--{{aa.bb}}</span>'
+  })
+
   new Vue({
     el:'#app',
+    data:{
+      msg:'',
+      todo: {
+        text: 'Learn Vue',
+        isComplete: false,
+        aa:{
+          bb:'我来了'
+        }
+      },
+    }
 
   })
 
 </script>
 </body>
 </html>
+
