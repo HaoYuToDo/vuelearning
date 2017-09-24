@@ -1,3 +1,10 @@
+<!--父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译。-->
+<!--父组件模板不应该知道子组件的状态-->
+<!--如果要绑定作用域内的指令到一个组件的根节点，你应当在组件自己的模板上做-->
+
+<!--展现一个用普通的插槽，展现不同的用具名插槽name属性区分-->
+<!--子组件传值给父组件用作用域插槽，加了一个templete。使用情况，当在子组件获取数据，父组件不知道怎么展示时。
+当然如果父组件获取数据来展现就没必要用了-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +13,101 @@
 </head>
 <body>
 <div class="app">
+<!--无效的点击-->
+       <comp  v-on:click="aaa"></comp>
+<!--有效的点击-->
+       <comp  v-on:click.native="aaa"></comp>
+
+
+  <my-component >
+    <p @click="aaa">这是一些初始内容</p>
+    <p>这是更多的初始内容</p>
+  </my-component>
+
+  <app-layout>
+    <h1 slot="header">这里可能是一个页面标题</h1>
+    <p>主要内容的一个段落。</p>
+    <p>另一个主要段落。</p>
+    <h1 slot="footer">这里有一些联系信息</h1>
+  </app-layout>
+
+
+  <my-awesome-list :items="items">
+    <!-- 作用域插槽也可以是具名的 -->
+    <template slot="item" scope="props">
+      <li class="my-fancy-item">{{ props.text }}</li>
+    </template>
+  </my-awesome-list>
 
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
-   new Vue({
+  Vue.component('comp', {
+    template: '<div>我是子组件的内容</div>',
+    data: function () {
+      return {
+      }
+    },
+    methods: {
+
+    },
+  });
+
+  Vue.component('myComponent', {
+    template: '<div>\n' +
+    '  <h2>我是子组件的标题</h2>\n' +
+    '  <slot>\n' +
+    '    只有在没有要分发的内容时才会显示。\n' +
+    '  </slot>\n' +
+    '</div>',
+
+  });
+
+
+  Vue.component('appLayout', {
+    template: '<div class="container">\n' +
+    '  <header>\n' +
+    '    <slot name="header"></slot>\n' +
+    '  </header>\n' +
+    '  <main>\n' +
+    '    <slot></slot>\n' +
+    '  </main>\n' +
+    '  <footer>\n' +
+    '    <slot name="footer"></slot>\n' +
+    '  </footer>\n' +
+    '</div>',
+
+  });
+
+  Vue.component('myAwesomeList', {
+    template: '<ul>\n' +
+    '  <slot name="item"\n' +
+    '        v-for="(item,index) in items"\n' +
+    '        :text="item">\n' +
+    '    <!-- 这里写入备用内容 -->\n' +
+    '  </slot>\n' +
+    '</ul>',
+    props:['items']
+
+  });
+
+
+  new Vue({
      el:'.app',
+     isshow:'true',
+    methods:{
+       aaa(){
+         console.log('我被点击了')
+       }
+    },
+    data(){
+       return{
+         items:[1,2,3,4,5,6,7]
+       }
+    }
 
    })
 </script>
 </body>
 </html>
+
