@@ -5,6 +5,12 @@
 <!--展现一个用普通的插槽，展现不同的用具名插槽name属性区分-->
 <!--子组件传值给父组件用作用域插槽，加了一个templete。使用情况，当在子组件获取数据，父组件不知道怎么展示时。
 当然如果父组件获取数据来展现就没必要用了-->
+
+<!--切换组件
+1.路由切换
+2.v-show ,v-if判断切换
+3.动态控制component的v-bind:is="currentView"
+页面复杂用 2 和3 本质是一样的，只不过是分离了代码-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +45,12 @@
     </template>
   </my-awesome-list>
 
+   <div @click="bb">切换组件home</div>
+   <div @click="cc">切换组件posts</div>
+   <div @click="dd">切换组件archive</div>
+  <component v-bind:is="currentView">
+    <!-- 组件在 vm.currentview 变化时改变！ -->
+  </component>
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
@@ -98,12 +110,34 @@
     methods:{
        aaa(){
          console.log('我被点击了')
-       }
+       },
+      bb(){
+        this.currentView='home'
+      },
+      cc(){
+        this.currentView='posts'
+      },
+      dd(){
+        this.currentView='archive'
+      }
     },
     data(){
        return{
-         items:[1,2,3,4,5,6,7]
+         items:[1,2,3,4,5,6,7],
+        currentView:'home'
+
        }
+    },
+    components: {
+      home:{
+        template:'<p>我是home组件</p>'
+      },
+      posts: {
+        template:'<p>我是posts组件</p>'
+      },
+      archive: {
+        template:'<p>我是archive组件</p>'
+      }
     }
 
    })
