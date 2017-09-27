@@ -1,0 +1,50 @@
+<!--v-enter-active和v-leave-active是控制动画的 时间 平缓度-->
+<!--v-enter和v-leave-to才是真正控制动画的的具体规则如下-->
+<!--进入时候的动画是以v-enter的位置---本身的位置，离开的动画是以本身的位置---v-leave-to的位置-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+  <style>
+    /* 可以设置不同的进入和离开动画 */
+    /* 设置持续时间和动画函数 */
+    .slide-fade-enter-active {
+      transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+      transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+      /* .slide-fade-leave-active for below version 2.1.8 */ {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    Toggle render
+    hello
+
+  </style>
+</head>
+<body>
+<div id="example-1">
+  <button @click="show = !show">
+    Toggle render
+  </button>
+  <transition name="slide-fade">
+    <p v-if="show">hello</p>
+  </transition>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+  new Vue({
+    el: '#example-1',
+    data: {
+      show: true
+    }
+  })
+</script>
+</body>
+</html>
