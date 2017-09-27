@@ -1,0 +1,68 @@
+<!--生命周期钩子混合，混合的先执行，组件后执行-->
+<!--方法,计算属性，components 和 directives混合，重名了的，默认执行组件的-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+  <div>{{reversedMessage}}</div>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script>
+  let mixin = {
+    methods: {
+      foo: function () {
+        console.log('foo')
+      },
+      conflicting: function () {
+        console.log('from mixin')
+      }
+    },
+    created: function () {
+      console.log('混合对象的钩子被调用')
+    },
+    computed: {
+      // a computed getter
+      reversedMessage: function () {
+        // `this` points to the vm instance
+        return this.msg+'混合'
+      }
+    }
+  }
+  let vm = new Vue({
+    data:{
+      msg:'我是'
+    },
+    el:'#app',
+    mixins: [mixin],
+    methods: {
+      bar: function () {
+        console.log('bar')
+      },
+      conflicting: function () {
+        console.log('from self')
+      }
+    },
+    created: function () {
+      console.log('组件钩子被调用')
+    },
+    computed: {
+      // a computed getter
+      reversedMessage: function () {
+        // `this` points to the vm instance
+        return this.msg+'组件'
+      }
+    }
+  })
+//  vm.foo() // => "foo"
+//  vm.bar() // => "bar"
+//  vm.conflicting() // => "from self"
+</script>
+</body>
+</html>
