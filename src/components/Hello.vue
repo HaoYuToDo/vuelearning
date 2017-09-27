@@ -6,11 +6,16 @@
 
 <script>
 export default {
-  name: 'hello',
+//  name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '页面跳转成功'
     }
+  },
+  created(){
+//    this.$router.params
+    console.log("带过来的数据为"+this.$route.params.id)
+    console.log("带过来的数据为"+this.$route.params.name)
   }
 }
 </script>
