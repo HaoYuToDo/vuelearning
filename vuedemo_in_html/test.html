@@ -9,21 +9,16 @@
 </head>
 <body>
 <div id="app">
-       <div v-if="aaa(0.6)">Now you see me</div>
-       <div v-else=""> no see</div>
 
+  <div v-for="todo in todos" v-if="todo">{{todo}}</div>
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script>
     new Vue({
       el:'#app',
-      methods:{
-        aaa(num){
-          if(num>0.5){
-            return true
-          }else {
-            return false
-          }
+      data(){
+        return{
+          todos:[true,false,true,true]
         }
       }
     })
